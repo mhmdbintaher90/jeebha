@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>جيبها | اطلب من أي موقع، يوصلك لباب بيتك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B2B36;
+    --ink-2:#102F39;
+    --sea:#15505C;
+    --brass:#CC9A3F;
+    --brass-light:#E0B65E;
+    --terracotta:#C1532E;
+    --paper:#F4ECDD;
+    --muted:#9FB8BD;
+    --line: rgba(244,236,221,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3, .display{
+    font-family:'Lalezar', sans-serif;
+    font-weight:400;
+    letter-spacing:0.5px;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; direction:ltr; unicode-bidi:embed; }
+  a{ color:inherit; text-decoration:none; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  :focus-visible{ outline:3px solid var(--brass-light); outline-offset:3px; border-radius:4px; }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,43,54,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px;
+  }
+  .brand{
+    font-family:'Lalezar', sans-serif;
+    font-size:28px;
+    color:var(--brass-light);
+  }
+  .brand span{ color:var(--paper); font-size:14px; font-family:'Tajawal',sans-serif; display:block; margin-top:-4px; opacity:0.7; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--brass);
+    color:var(--ink);
+    font-weight:700;
+    padding:12px 22px;
+    border-radius:8px;
+    border:none;
+    font-size:15px;
+    cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+    font-family:'Tajawal', sans-serif;
+  }
+  .btn:hover{ background:var(--brass-light); transform:translateY(-1px); }
+  .btn-ghost{
+    background:transparent; color:var(--paper); border:1px solid var(--line);
+  }
+  .btn-ghost:hover{ background:rgba(244,236,221,0.06); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    padding:90px 0 70px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 85% 10%, rgba(204,154,63,0.18), transparent 45%),
+      radial-gradient(circle at 10% 90%, rgba(21,80,92,0.55), transparent 50%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:1;
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:48px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    direction:ltr;
+    font-size:12px;
+    letter-spacing:2px;
+    color:var(--brass-light);
+    border:1px solid rgba(204,154,63,0.4);
+    padding:5px 12px;
+    border-radius:20px;
+    margin-bottom:20px;
+  }
+  .hero h1{
+    font-size:54px;
+    line-height:1.25;
+    color:var(--paper);
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--brass-light);
+  }
+  .hero p.lead{
+    margin-top:20px;
+    font-size:18px;
+    color:var(--muted);
+    max-width:480px;
+  }
+  .hero-ctas{
+    margin-top:32px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn-lg{ padding:16px 28px; font-size:16px; border-radius:10px; }
+
+  /* Stamp visual */
+  .stamp-stage{
+    position:relative;
+    aspect-ratio: 1/1;
+    max-width:340px;
+    margin:0 auto;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stamp-stage::before{
+    content:"";
+    position:absolute; inset:6%;
+    border:1.5px dashed rgba(159,184,189,0.35);
+    border-radius:50%;
+  }
+  .stamp{
+    width:62%;
+    transform: rotate(-18deg) scale(2.4);
+    opacity:0;
+    color:var(--terracotta);
+    border:5px solid var(--terracotta);
+    border-radius:14px;
+    padding:18px 10px;
+    text-align:center;
+    font-family:'Lalezar', sans-serif;
+    font-size:30px;
+    background:rgba(193,83,46,0.06);
+    animation: stamp-slam 0.7s cubic-bezier(.2,1.4,.4,1) 0.5s forwards;
+  }
+  .stamp small{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    direction:ltr;
+    font-size:12px;
+    letter-spacing:2px;
+    margin-top:6px;
+    opacity:0.85;
+  }
+  @keyframes stamp-slam{
+    0%{ opacity:0; transform:rotate(-18deg) scale(2.4); }
+    60%{ opacity:1; transform:rotate(-12deg) scale(0.92); }
+    80%{ transform:rotate(-12deg) scale(1.06); }
+    100%{ opacity:1; transform:rotate(-12deg) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stamp{ animation:none; opacity:1; transform:rotate(-12deg) scale(1); }
+  }
+
+  /* ---------- Section shared ---------- */
+  section{ padding:80px 0; }
+  .section-head{ max-width:560px; margin-bottom:56px; }
+  .section-head .eyebrow{ margin-bottom:14px; }
+  .section-head h2{ font-size:36px; color:var(--paper); }
+  .section-head p{ color:var(--muted); margin-top:12px; font-size:16px; }
+
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Tracking timeline (how it works) ---------- */
+  .track{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+  }
+  .track::before{
+    content:"";
+    position:absolute;
+    top:26px; right:12.5%; left:12.5%;
+    height:2px;
+    background:repeating-linear-gradient(to left, var(--brass) 0 10px, transparent 10px 18px);
+  }
+  .track-step{ position:relative; padding:0 14px; text-align:center; }
+  .track-num{
+    width:52px; height:52px;
+    border-radius:50%;
+    background:var(--ink);
+    border:2px solid var(--brass);
+    color:var(--brass-light);
+    font-family:'IBM Plex Mono', monospace;
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; font-weight:600;
+    margin:0 auto 18px;
+    position:relative; z-index:1;
+  }
+  .track-step h3{ font-size:19px; font-family:'Tajawal',sans-serif; font-weight:700; color:var(--paper); margin-bottom:8px; }
+  .track-step p{ font-size:14.5px; color:var(--muted); }
+
+  /* ---------- Receipt card ---------- */
+  .receipt-wrap{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .receipt{
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:4px;
+    padding:32px 28px;
+    position:relative;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .receipt::before, .receipt::after{
+    content:"";
+    position:absolute; left:0; right:0; height:14px;
+    background:
+      radial-gradient(circle at 8px 7px, transparent 7px, var(--ink) 7.5px) 0 0/16px 14px repeat-x;
+  }
+  .receipt::before{ top:-7px; }
+  .receipt::after{ bottom:-7px; transform:rotate(180deg); }
+  .receipt h4{
+    font-family:'IBM Plex Mono', monospace;
+    direction:ltr; text-align:center;
+    font-size:13px; letter-spacing:2px;
+    color:var(--sea);
+    border-bottom:1px dashed rgba(11,43,54,0.25);
+    padding-bottom:14px; margin-bottom:14px;
+  }
+  .receipt-row{
+    display:flex; justify-content:space-between;
+    font-size:15px; padding:7px 0;
+  }
+  .receipt-row span:last-child{ font-family:'IBM Plex Mono', monospace; direction:ltr; }
+  .receipt-row.total{
+    border-top:1px dashed rgba(11,43,54,0.3);
+    margin-top:8px; padding-top:14px;
+    font-weight:800; font-size:17px;
+  }
+  .receipt-row.total span:last-child{ color:var(--terracotta); }
+
+  .fee-copy h2{ font-size:32px; margin-bottom:16px; color:var(--paper); }
+  .fee-copy p{ color:var(--muted); font-size:16px; margin-bottom:10px; }
+  .fee-copy strong{ color:var(--brass-light); }
+
+  /* ---------- Sites badges ---------- */
+  .sites{
+    display:flex; flex-wrap:wrap; gap:14px;
+  }
+  .site-badge{
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:10px 22px;
+    font-size:15px;
+    color:var(--paper);
+    background:rgba(244,236,221,0.04);
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{
+    border-bottom:1px solid var(--line);
+    padding:22px 0;
+  }
+  .faq-item h3{ font-size:18px; font-family:'Tajawal',sans-serif; font-weight:700; color:var(--paper); margin-bottom:8px; }
+  .faq-item p{ color:var(--muted); font-size:15px; max-width:680px; }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta{
+    background:linear-gradient(135deg, var(--sea), var(--ink-2));
+    border-radius:20px;
+    padding:64px 40px;
+    text-align:center;
+    margin:0 24px 0;
+  }
+  .final-cta h2{ font-size:34px; margin-bottom:14px; }
+  .final-cta p{ color:var(--muted); margin-bottom:28px; font-size:16px; }
+
+  footer{
+    padding:40px 24px 50px;
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+  }
+  footer .brand{ font-size:20px; margin-bottom:8px; display:block; }
+
+  /* sticky whatsapp mobile */
+  .sticky-wa{
+    position:fixed; left:18px; bottom:18px; z-index:60;
+    width:58px; height:58px; border-radius:50%;
+    background:var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px -6px rgba(0,0,0,0.5);
+  }
+  .sticky-wa svg{ width:28px; height:28px; }
+
+  @media (max-width:880px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero h1{ font-size:38px; }
+    .stamp-stage{ max-width:220px; margin-top:20px; }
+    .track{ grid-template-columns:1fr; gap:36px; }
+    .track::before{ display:none; }
+    .receipt-wrap{ grid-template-columns:1fr; gap:32px; }
+    .final-cta{ padding:46px 24px; }
+    .section-head h2{ font-size:28px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner wrap" style="padding:0;">
+    <div class="brand">جيبها<span>خدمة الشراء من أي موقع عالمي</span></div>
+    <a class="btn btn-ghost" href="#" id="wa-top">واتساب</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">SHOP ANYWHERE → DELIVERED IN LIBYA</span>
+      <h1>تشوف منتج عجبك على النت؟<br><em>"جيبها"</em> تشتريه وتوصلك لباب بيتك</h1>
+      <p class="lead">أمازون، شي إن، أو أي موقع تحدده — تبعتلنا رابط المنتج، وإحنا نشتري ونوصل لطرابلس. بدون فيزا، بدون تعقيد.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-lg" id="wa-hero">ابعت رابط المنتج على واتساب</a>
+        <a href="#how" class="btn btn-ghost btn-lg">كيف تشتغل الخدمة؟</a>
+      </div>
+    </div>
+    <div class="stamp-stage">
+      <div class="stamp">تم الشراء<small>JEEBHA · CLEARED</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">HOW IT WORKS</span>
+      <h2>أربع خطوات، وتستلم في بيتك</h2>
+      <p>كل طلب يمشي بنفس المسار، من الرابط إلى باب بيتك.</p>
+    </div>
+    <div class="track reveal">
+      <div class="track-step">
+        <div class="track-num">1</div>
+        <h3>تبعت الرابط</h3>
+        <p>تختار المنتج من أمازون أو شي إن وتبعتلنا الرابط على واتساب.</p>
+      </div>
+      <div class="track-step">
+        <div class="track-num">2</div>
+        <h3>نحسبلك السعر</h3>
+        <p>نرسلك سعر المنتج + نسبة خدمتنا، واضحة من البداية.</p>
+      </div>
+      <div class="track-step">
+        <div class="track-num">3</div>
+        <h3>تأكد وتدفع</h3>
+        <p>توافق على السعر، تدفع، ونبدأ نشتري طلبك فوراً.</p>
+      </div>
+      <div class="track-step">
+        <div class="track-num">4</div>
+        <h3>التوصيل لبيتك</h3>
+        <p>يوصلك الطلب لباب بيتك في طرابلس، وخلاص.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">PRICING</span>
+      <h2>الأسعار واضحة من أول رسالة</h2>
+    </div>
+    <div class="receipt-wrap reveal">
+      <div class="fee-copy">
+        <h2>ما فيها مفاجآت</h2>
+        <p>رسوم خدمتنا <strong>نسبة بسيطة %</strong> من سعر المنتج، تتحسب وتتعرض عليك قبل ما تدفع أي شي.</p>
+        <p>ما فيه رسوم خفية، وما تدفع شي إلا بعد ما توافق على السعر النهائي.</p>
+      </div>
+      <div class="receipt">
+        <h4>JEEBHA · ORDER RECEIPT</h4>
+        <div class="receipt-row"><span>سعر المنتج</span><span>120.00 LYD</span></div>
+        <div class="receipt-row"><span>نسبة الخدمة</span><span>+ 15%</span></div>
+        <div class="receipt-row"><span>التوصيل داخل طرابلس</span><span>+ 10.00 LYD</span></div>
+        <div class="receipt-row total"><span>الإجمالي</span><span>148.00 LYD</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">SUPPORTED SITES</span>
+      <h2>نطلب لك من</h2>
+    </div>
+    <div class="sites reveal">
+      <span class="site-badge">Amazon</span>
+      <span class="site-badge">Shein</span>
+      <span class="site-badge">AliExpress</span>
+      <span class="site-badge">Noon</span>
+      <span class="site-badge">أي موقع آخر — اسألنا</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>أسئلة شائعة</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <h3>المنتج أصلي؟</h3>
+        <p>نشتري بنفس الرابط اللي تبعته، من نفس الموقع والبائع اللي تختاره — ما فيه أي تبديل.</p>
+      </div>
+      <div class="faq-item">
+        <h3>قداش تاخذ مدة التوصيل؟</h3>
+        <p>حسب الموقع والمنتج، عادة بين 10 إلى 20 يوم من وقت تأكيد الطلب.</p>
+      </div>
+      <div class="faq-item">
+        <h3>كيف أدفع؟</h3>
+        <p>تحويل بنكي أو نقدي عند الاتفاق، وتقدر تستفسر عن التفاصيل على واتساب.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="final-cta reveal">
+    <h2>عندك رابط منتج جاهز؟</h2>
+    <p>ابعته الآن وخلنا نحسبلك السعر في دقائق.</p>
+    <a href="#" class="btn btn-lg" id="wa-final">ابعت الرابط على واتساب</a>
+  </div>
+</section>
+
+<footer>
+  <span class="brand">جيبها</span>
+  للطلب والاستفسار: واتساب — [ضع رقمك هنا]
+</footer>
+
+<a href="#" class="sticky-wa" id="wa-sticky" aria-label="تواصل عبر واتساب">
+  <svg viewBox="0 0 24 24" fill="#0B2B36"><path d="M17.5 14.4c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.3-.1-.5.1-.7.2-.2.4-.5.6-.7.1-.2.2-.4.1-.6-.1-.2-.7-1.7-1-2.3-.2-.5-.4-.4-.6-.4h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.6 0 1.5 1.1 3 1.3 3.2.2.2 2.2 3.4 5.3 4.6 2.6 1 2.6.8 3.1.8.5 0 1.6-.6 1.8-1.2.2-.6.2-1.1.2-1.2 0-.1-.1-.2-.3-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5-1.3c1.4.8 3.1 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-2.9.8.8-2.8-.2-.3C4.4 15.2 4 13.6 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/></svg>
+</a>
+
+<script>
+  const waNumber = ""; // ضع رقمك هنا بصيغة دولية، مثال: 218916282039 
+  const waText = encodeURIComponent("السلام عليكم، حابب أطلب منتج من خدمة جيبها");
+  const waLink = waNumber ? `https://wa.me/${waNumber}?text=${waText}` : "#";
+  ["wa-top","wa-hero","wa-final","wa-sticky"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.href = waLink;
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold:0.15 });
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
